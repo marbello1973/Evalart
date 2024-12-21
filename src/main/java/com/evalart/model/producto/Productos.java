@@ -7,7 +7,6 @@ import lombok.*;
 
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "producto")
 public class Productos {
@@ -21,6 +20,8 @@ public class Productos {
     @JoinColumn(name = "sucursal_id")
     @JsonBackReference
     private Sucursales sucursales;
+
+    private Productos() { }
 
     public Productos(long l, String s, double v) {
     }

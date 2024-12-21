@@ -10,7 +10,6 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "sucursales")
 public class Sucursales {
@@ -27,6 +26,8 @@ public class Sucursales {
     @OneToMany(mappedBy = "sucursales", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Productos> producto;
+
+    public Sucursales() { }
 
     public <E> Sucursales(long l, String s, List<Productos> producto) { }
 
