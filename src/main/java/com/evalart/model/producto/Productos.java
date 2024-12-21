@@ -22,6 +22,9 @@ public class Productos {
     @JsonBackReference
     private Sucursales sucursales;
 
+    public Productos(long l, String s, double v) {
+    }
+
     public Long getId() {
         return id;
     }

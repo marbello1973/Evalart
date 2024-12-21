@@ -53,13 +53,9 @@ public class FranquisiaController {
 
     // Endpoint para obtener todas las franquisias
     @GetMapping("/all")
-    public ResponseEntity<List<Franquisia>> getAllFranquisias(Pageable pageable) {
-
-        Page<Franquisia> franquisias = repository
-                .findAll(pageable);
-
-        return ResponseEntity.ok()
-                .body(franquisias.getContent());
+    public ResponseEntity<Page<Franquisia>> getAllFranquisias(Pageable pageable) {
+        Page<Franquisia> franquicias = repository.findAll(pageable);
+        return ResponseEntity.ok(franquicias);
     }
 
     // Endpoint para actualizar o cambiar de nombre una franquisia por id

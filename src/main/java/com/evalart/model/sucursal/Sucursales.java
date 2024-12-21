@@ -28,6 +28,8 @@ public class Sucursales {
     @JsonManagedReference
     private List<Productos> producto;
 
+    public <E> Sucursales(long l, String s, List<Productos> producto) { }
+
     public Long getId() {
         return id;
     }
