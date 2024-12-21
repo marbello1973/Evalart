@@ -73,8 +73,11 @@ public class SucursalController {
             )
     {
         return franquisiaRepository.findById(franquisiaId)
-                .map(f -> repository.findById(sucursalId)
+                .map(_ -> repository.findById(sucursalId)
                         .map(sucursalUpdate -> {
+                            if(!sucursalUpdate.getFranquisia().getId().equals(franquisiaId)) {
+                                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                            }
                             sucursalUpdate.setNombre(sucursal.getNombre());
                             return ResponseEntity.ok(repository.save(sucursalUpdate));
                         }).orElseGet(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()))
