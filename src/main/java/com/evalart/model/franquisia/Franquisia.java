@@ -13,8 +13,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Entity(name = "franquisia")
 public class Franquisia {
 
@@ -28,4 +26,27 @@ public class Franquisia {
     @JsonManagedReference
     private List<Sucursales> sucursales;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Sucursales> getSucursales() {
+        return sucursales;
+    }
+
+    public void setSucursales(List<Sucursales> sucursales) {
+        this.sucursales = sucursales;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

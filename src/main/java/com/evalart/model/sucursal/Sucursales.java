@@ -12,8 +12,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Entity(name = "sucursales")
 public class Sucursales {
     @Id
@@ -29,4 +27,36 @@ public class Sucursales {
     @OneToMany(mappedBy = "sucursales", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Productos> producto;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Productos> getProducto() {
+        return producto;
+    }
+
+    public void setProducto(List<Productos> producto) {
+        this.producto = producto;
+    }
+
+    public Franquisia getFranquisia() {
+        return franquisia;
+    }
+
+    public void setFranquisia(Franquisia franquisia) {
+        this.franquisia = franquisia;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

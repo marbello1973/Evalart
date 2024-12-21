@@ -2,6 +2,98 @@
 
 Este proyecto permite gestionar **Franquisias**, **Sucursales**, y **Productos** a través de una API REST. A continuación, se documentan los endpoints disponibles y ejemplos de cómo usarlos.
 
+## Despliegue de la Aplicación desde un Editor
+
+A continuación se explican los pasos para desplegar la aplicación en tu entorno local utilizando un editor de código como **IntelliJ IDEA** o **Visual Studio Code**.
+
+### Requisitos previos
+
+Antes de desplegar la aplicación, asegúrate de tener instalados los siguientes componentes:
+
+- **Java 17 o superior**: La aplicación está desarrollada utilizando Spring Boot, Java 23 o superior.
+- **IDE compatible**:
+  - **IntelliJ IDEA** (se recomienda la versión Community o Ultimate).
+  - **Visual Studio Code** (con los plugins de Java instalados).
+- **MySQL**: Asegúrate de tener MySQL instalado y configurado en tu máquina local o en un servidor accesible.
+- **Maven**: La aplicación utiliza Maven como herramienta de construcción.
+
+---
+
+### Despliegue en IntelliJ IDEA
+
+1. **Abrir el proyecto en IntelliJ IDEA**:
+   - Abre IntelliJ IDEA.
+   - Haz clic en "Open" y selecciona el directorio del proyecto.
+
+2. **Configurar la conexión a la base de datos**:
+   - Asegúrate de que la base de datos MySQL esté en funcionamiento.
+   - Abre el archivo `application.yml` y verifica que las configuraciones de conexión a la base de datos (`url`, `username`, `password`) sean correctas para tu entorno local.
+   
+3. **Ejecutar la aplicación**:
+   - En IntelliJ IDEA, abre la clase principal que contiene el método `main` (por lo general, se encuentra en el paquete raíz de tu proyecto, como `com.evalart.EvalartApplication`).
+   - Haz clic derecho en la clase y selecciona **Run 'EvalartApplication'**.
+   - IntelliJ IDEA compilará el proyecto y lo ejecutará, lanzando la aplicación en el servidor embebido de Spring Boot en `http://localhost:8080`.
+
+4. **Acceder a la documentación de la API**:
+   - Una vez que la aplicación esté en ejecución, puedes acceder a la documentación interactiva de Swagger en la URL `http://localhost:8080/swagger-ui.html`.
+
+### Despliegue en Visual Studio Code
+
+1. **Abrir el proyecto en Visual Studio Code**:
+   - Abre Visual Studio Code.
+   - Haz clic en **File > Open Folder** y selecciona el directorio del proyecto.
+
+2. **Instalar las extensiones necesarias**:
+   - Si no tienes los plugins de Java, instálalos:
+     - Abre la vista de extensiones (`Ctrl+Shift+X` o `Cmd+Shift+X` en Mac).
+     - Busca "Java Extension Pack" y haz clic en **Install**.
+
+3. **Configurar la conexión a la base de datos**:
+   - Abre el archivo `application.yml` y asegúrate de que las configuraciones de conexión a la base de datos sean correctas.
+
+4. **Ejecutar la aplicación**:
+   - Abre el terminal integrado de Visual Studio Code (`Ctrl+` o `Cmd+` en Mac).
+   - En el terminal, ejecuta el siguiente comando para compilar y ejecutar la aplicación:
+
+     ```bash
+     mvn spring-boot:run
+     ```
+
+   - Maven descargará las dependencias necesarias y ejecutará la aplicación, lanzando el servidor de Spring Boot en `http://localhost:8080`.
+
+5. **Acceder a la documentación de la API**:
+   - Una vez que la aplicación esté en ejecución, puedes acceder a la documentación interactiva de Swagger en `http://localhost:8080/swagger-ui.html`.
+
+### Notas adicionales
+
+- **Verificar el puerto de la aplicación**: Si el puerto `8080` está ocupado o deseas cambiarlo, puedes modificar el archivo `application.yml` añadiendo la siguiente configuración:
+
+  ```yaml
+  server:
+    port: 8081  # Cambia 8081 por el puerto que desees utilizar
+
+
+## Configuración del archivo `application.yml`
+
+El archivo `application.yml` es donde se definen las configuraciones esenciales para la conexión a la base de datos, la gestión de perfiles y la configuración de seguridad, entre otras.
+
+### Configuración de Perfiles y Base de Datos
+
+```yaml
+spring: 
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/acenture  # URL de la base de datos MySQL
+    username: tu-usuario  # Usuario de la base de datos
+    password: tu-password  # Contraseña de la base de datos
+  jpa:
+    show-sql: true  # Muestra las consultas SQL generadas por Hibernate
+    properties:
+      hibernate:
+        format_sql: true  # Formatea el SQL generado para una lectura más fácil
+```
+  
+
 ## **Endpoints**
 
 ### **Carpeta Franquisia**
@@ -12,19 +104,17 @@ Este proyecto permite gestionar **Franquisias**, **Sucursales**, y **Productos**
 **Ejemplo de Uso:**
 ```json
 {
-
-  "nombre": "Yamaha Colombia",
-  "sucursalDTO": [
-    {
-      "nombre": "Tornilleria",
-      "productoDTO": [
-        {
-          "nombre": "Tornilleria rosca fina",
-          "stock": 40
-        }
-      ]
-    }
-  ]
+ 
+  "nombre": "Franquisia numero 3",
+  "sucursales": []
+}
+```
+**Ejemplo de Respuesta:**
+```json
+{
+  "id": 4,
+  "nombre": "Franquisia numero 3",
+  "sucursales": []
 }
 ```
 
