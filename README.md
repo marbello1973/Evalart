@@ -34,9 +34,6 @@ Antes de desplegar la aplicación, asegúrate de tener instalados los siguientes
    - Haz clic derecho en la clase y selecciona **Run 'EvalartApplication'**.
    - IntelliJ IDEA compilará el proyecto y lo ejecutará, lanzando la aplicación en el servidor embebido de Spring Boot en `http://localhost:8080`.
 
-4. **Acceder a la documentación de la API**:
-   - Una vez que la aplicación esté en ejecución, puedes acceder a la documentación interactiva de Swagger en la URL `http://localhost:8080/swagger-ui.html`.
-
 ### Despliegue en Visual Studio Code
 
 1. **Abrir el proyecto en Visual Studio Code**:
@@ -60,10 +57,10 @@ Antes de desplegar la aplicación, asegúrate de tener instalados los siguientes
      ```
 
    - Maven descargará las dependencias necesarias y ejecutará la aplicación, lanzando el servidor de Spring Boot en `http://localhost:8080`.
-
-5. **Acceder a la documentación de la API**:
+---
+##   **Acceder a la documentación de la API**:
    - Una vez que la aplicación esté en ejecución, puedes acceder a la documentación interactiva de Swagger en `http://localhost:8080/swagger-ui.html`.
-
+---
 ### Notas adicionales
 
 - **Verificar el puerto de la aplicación**: Si el puerto `8080` está ocupado o deseas cambiarlo, puedes modificar el archivo `application.yml` añadiendo la siguiente configuración:

@@ -1,8 +1,8 @@
 package com.evalart.controller;
 
-import com.evalart.model.franquicia.Franquicia;
 import com.evalart.model.franquicia.FranquiciaRepository;
 import com.evalart.model.franquicia.FranquiciaDTO;
+import com.evalart.model.franquicia.Franquicia;
 import com.evalart.model.sucursal.Sucursales;
 import com.evalart.model.producto.Productos;
 
@@ -11,9 +11,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/franquicia")
@@ -21,10 +21,7 @@ public class FranquisiaController {
 
     private final FranquiciaRepository repository;
 
-    public FranquisiaController
-            (
-                FranquiciaRepository repository
-            )
+    public FranquisiaController(FranquiciaRepository repository)
     {
         this.repository = repository;
     }
@@ -49,7 +46,6 @@ public class FranquisiaController {
         return ResponseEntity.ok(repository.save(franquicia));
     }
 
-
     // Endpoint para obtener todas las franquisias
     @GetMapping("/all")
     public ResponseEntity<Page<Franquicia>> getAllFranquisias(Pageable pageable)
@@ -58,7 +54,7 @@ public class FranquisiaController {
         return ResponseEntity.ok(franquicias);
     }
 
-    // Endpoint para actualizar o cambiar de nombre una franquisia por id
+    // Endpoint para actualizar o cambiar de nombre una franquicia por id
     @PutMapping("/update/{id}")
     public ResponseEntity<Franquicia> updateFranquicia
             (
@@ -67,7 +63,7 @@ public class FranquisiaController {
             )
     {
         Franquicia franquicia = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Franquisia no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Franquicia no encontrada"));
 
         franquicia.setNombre(franquiciaDTO.nombre());
         return ResponseEntity.ok(repository.save(franquicia));

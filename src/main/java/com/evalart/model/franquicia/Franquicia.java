@@ -6,7 +6,8 @@ import com.evalart.model.sucursal.Sucursales;
 
 import jakarta.persistence.*;
 
-import lombok.*;
+
+import lombok.Data;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ public class Franquicia {
     private Long id;
     private String nombre;
 
-    @Getter
     @OneToMany(mappedBy = "franquicia", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Sucursales> sucursales;
@@ -32,26 +32,19 @@ public class Franquicia {
         this.sucursales = sucursales;
     }
 
-    public Long getId() {
-        return id;
-    }
-
+    public Long getId() { return id; }
     public void setId(Long id) {
         this.id = id;
     }
-
     public List<Sucursales> getSucursales() {
         return sucursales;
     }
-
     public void setSucursales(List<Sucursales> sucursales) {
         this.sucursales = sucursales;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

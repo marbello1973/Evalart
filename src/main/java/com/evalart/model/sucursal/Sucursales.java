@@ -5,12 +5,13 @@ import com.evalart.model.producto.Productos;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
 
+import lombok.Data;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @Entity(name = "sucursales")
 public class Sucursales {
     @Id
@@ -25,11 +26,15 @@ public class Sucursales {
 
     @OneToMany(mappedBy = "sucursales", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Productos> producto;
+    private List<Productos> producto = new ArrayList<>();
 
     public Sucursales() { }
 
-    public <E> Sucursales(long l, String s, List<Productos> producto) { }
+    public <E> Sucursales(long l, String s, List<Productos> producto) {
+        this.id = l;
+        this.nombre = s;
+        this.producto = producto != null ? new ArrayList<>(producto) : null;
+    }
 
     public Long getId() {
         return id;

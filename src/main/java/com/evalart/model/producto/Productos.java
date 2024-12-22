@@ -3,11 +3,11 @@ package com.evalart.model.producto;
 import com.evalart.model.sucursal.Sucursales;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.Data;
 
 
 @Data
-@AllArgsConstructor
 @Entity(name = "producto")
 public class Productos {
     @Id
@@ -21,7 +21,14 @@ public class Productos {
     @JsonBackReference
     private Sucursales sucursales;
 
-    private Productos() { }
+    public Productos() { }
+
+    public Productos(Long id, String nombre, Integer stock, Sucursales sucursales) {
+        this.id = id;
+        this.nombre = nombre;
+        this.stock = stock;
+        this.sucursales = sucursales;
+    }
 
     public Productos(long l, String s, double v) {
     }
