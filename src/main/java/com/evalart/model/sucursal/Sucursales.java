@@ -1,6 +1,6 @@
 package com.evalart.model.sucursal;
 
-import com.evalart.model.franquisia.Franquisia;
+import com.evalart.model.franquicia.Franquicia;
 import com.evalart.model.producto.Productos;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -19,9 +19,9 @@ public class Sucursales {
     private String nombre;
 
     @ManyToOne
-    @JoinColumn(name = "franquisia_id")
+    @JoinColumn(name = "franquicia_id")
     @JsonBackReference
-    private Franquisia franquisia;
+    private Franquicia franquicia;
 
     @OneToMany(mappedBy = "sucursales", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -47,12 +47,12 @@ public class Sucursales {
         this.producto = producto;
     }
 
-    public Franquisia getFranquisia() {
-        return franquisia;
+    public Franquicia getFranquicia() {
+        return franquicia;
     }
 
-    public void setFranquisia(Franquisia franquisia) {
-        this.franquisia = franquisia;
+    public void setFranquicia(Franquicia franquicia) {
+        this.franquicia = franquicia;
     }
 
     public String getNombre() {

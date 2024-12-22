@@ -1,10 +1,10 @@
-package com.evalart.model.franquisia;
+package com.evalart.model.franquicia;
 
 import com.evalart.model.sucursal.SucursalDTO;
 
 import java.util.List;
 
-public record FranquisiaDTO(
+public record FranquiciaDTO(
         Long id,
         String nombre,
         List<SucursalDTO> sucursalDTO

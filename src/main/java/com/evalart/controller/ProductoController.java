@@ -1,9 +1,9 @@
 package com.evalart.controller;
 
-import com.evalart.model.franquisia.FranquisiaRepository;
+import com.evalart.model.franquicia.Franquicia;
+import com.evalart.model.franquicia.FranquiciaRepository;
 import com.evalart.model.sucursal.SucursalesRepository;
 import com.evalart.model.producto.ProductoRepository;
-import com.evalart.model.franquisia.Franquisia;
 import com.evalart.model.producto.Productos;
 
 import org.springframework.web.bind.annotation.*;
@@ -18,19 +18,19 @@ import java.util.List;
 public class ProductoController {
 
     private final SucursalesRepository sucursalesRepository;
-    private final FranquisiaRepository franquisiaRepository;
+    private final FranquiciaRepository franquiciaRepository;
     private final ProductoRepository repository;
 
     public ProductoController
             (
                     SucursalesRepository sucursalesRepository,
-                    FranquisiaRepository franquisiaRepository,
+                    FranquiciaRepository franquiciaRepository,
                     ProductoRepository repository
             )
     {
         this.sucursalesRepository = sucursalesRepository;
         this.repository = repository;
-        this.franquisiaRepository = franquisiaRepository;
+        this.franquiciaRepository = franquiciaRepository;
     }
 
     //Exponer endpoint que permita agregar un producto a una sucursal de una franquicia.
@@ -42,10 +42,10 @@ public class ProductoController {
                     @RequestBody Productos producto
             )
     {
-        Optional<Franquisia> franquisiaOptional = franquisiaRepository.findById(franquisiaId);
+        Optional<Franquicia> franquisiaOptional = franquiciaRepository.findById(franquisiaId);
         if (franquisiaOptional.isPresent()) {
-            Franquisia franquisia = franquisiaOptional.get();
-            return franquisia.getSucursales()
+            Franquicia franquicia = franquisiaOptional.get();
+            return franquicia.getSucursales()
                     .stream()
                     .filter(sucursales -> sucursales.getId().equals(sucursalId))
                     .findFirst()
@@ -71,10 +71,10 @@ public class ProductoController {
                     @RequestBody Productos producto
             )
     {
-        Optional<Franquisia> franquisiaOptional = franquisiaRepository.findById(franquisiaId);
+        Optional<Franquicia> franquisiaOptional = franquiciaRepository.findById(franquisiaId);
         if(franquisiaOptional.isPresent()){
-            Franquisia franquisia = franquisiaOptional.get();
-            return franquisia.getSucursales()
+            Franquicia franquicia = franquisiaOptional.get();
+            return franquicia.getSucursales()
                     .stream()
                     .filter(sucursales -> sucursales.getId().equals(sucursalId))
                     .findFirst()
@@ -109,10 +109,10 @@ public class ProductoController {
                 @PathVariable Long productoId
             )
     {
-        Optional<Franquisia> franquisiaOptional = franquisiaRepository.findById(franquisiaId);
+        Optional<Franquicia> franquisiaOptional = franquiciaRepository.findById(franquisiaId);
         if (franquisiaOptional.isPresent()) {
-            Franquisia franquisia = franquisiaOptional.get();
-            return franquisia.getSucursales()
+            Franquicia franquicia = franquisiaOptional.get();
+            return franquicia.getSucursales()
                     .stream()
                     .filter(sucursales -> sucursales.getId().equals(sucursalId))
                     .findFirst()

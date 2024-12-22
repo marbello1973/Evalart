@@ -99,7 +99,7 @@ spring:
 ### **Carpeta Franquisia**
 
 #### **Agregar Franquisia**
-- **POST** `http://localhost:8080/franquisia/add`
+- **POST** `http://localhost:8080/franquicia/add`
 
 **Ejemplo de Uso:**
 ```json
@@ -119,7 +119,7 @@ spring:
 ```
 
 #### **Listar Todas las Franquisias**
-- **GET** `http://localhost:8080/franquisia/all`
+- **GET** `http://localhost:8080/franquicia/all`
 
 **Ejemplo de Respuesta:**
 ```json
@@ -134,7 +134,7 @@ spring:
         "producto": [
           {
             "id": 19,
-            "nombre": "franquisia 1 sucursal 1 prodcuto 19 ",
+            "nombre": "franquicia 1 sucursal 1 prodcuto 19 ",
             "stock": 1614
           }
         ]
@@ -145,7 +145,7 @@ spring:
         "producto": [
           {
             "id": 20,
-            "nombre": "productos para franquisia 1 sucursal 6",
+            "nombre": "productos para franquicia 1 sucursal 6",
             "stock": 110
           }
         ]
@@ -156,7 +156,7 @@ spring:
         "producto": [
           {
             "id": 21,
-            "nombre": "productos para franquisia 1 sucursal 7",
+            "nombre": "productos para franquicia 1 sucursal 7",
             "stock": 150
           }
         ]
@@ -167,7 +167,7 @@ spring:
 ```
 
 #### **Actualizar Franquisia**
-- **PUT** `http://localhost:8080/franquisia/update/{id}`
+- **PUT** `http://localhost:8080/franquicia/update/{id}`
 
 **Ejemplo de Uso:**
 ```json
@@ -181,7 +181,7 @@ spring:
 ### **Carpeta Sucursal**
 
 #### **Agregar Sucursal a una Franquisia**
-- **POST** `http://localhost:8080/sucursal/add/frq/{idFranquisia}`
+- **POST** `http://localhost:8080/sucursal/add/frq/{idFranquicia}`
 
 **Ejemplo de Uso:**
 ```json
@@ -209,12 +209,12 @@ spring:
   "producto": [
     {
       "id": 25,
-      "nombre": "productos para franquisia 8 sucursal 8",
+      "nombre": "productos para franquicia 8 sucursal 8",
       "stock": 184
     },
     {
       "id": 26,
-      "nombre": "productos para franquisia 8 sucursal 9",
+      "nombre": "productos para franquicia 8 sucursal 9",
       "stock": 189
     }
   ]
@@ -222,7 +222,7 @@ spring:
 ```
 
 #### **Actualizar Sucursal**
-- **PUT** `http://localhost:8080/sucursal/update/frq/{idFranquisia}/sucursal/{idSucursal}`
+- **PUT** `http://localhost:8080/sucursal/update/frq/{idFranquicia}/sucursal/{idSucursal}`
 
 **Ejemplo de Uso:**
 ```json
@@ -244,12 +244,12 @@ spring:
 ### **Carpeta Productos**
 
 #### **Agregar Producto a una Sucursal**
-- **POST** `http://localhost:8080/producto/add/frq/{idFranquisia}/suc/{idSucursal}`
+- **POST** `http://localhost:8080/producto/add/frq/{idFranquicia}/suc/{idSucursal}`
 
 **Ejemplo de Uso:**
 ```json
 {
-  "nombre": "productos para franquisia 8 sucursal 9",
+  "nombre": "productos para franquicia 8 sucursal 9",
   "stock": 149
 }
 ```
@@ -257,12 +257,12 @@ spring:
 ```json
 {
   "id": 26,
-  "nombre": "productos para franquisia 8 sucursal 9",
+  "nombre": "productos para franquicia 8 sucursal 9",
   "stock": 149
 }
 ```
 #### **Eliminar Producto**
-- **DELETE** `http://localhost:8080/producto/delete/frq/{idFranquisia}/suc/{idSucursal}/prod/{idProducto}`
+- **DELETE** `http://localhost:8080/producto/delete/frq/{idFranquicia}/suc/{idSucursal}/prod/{idProducto}`
 
 **Ejemplo de Respuesta:**
 ```json
@@ -272,12 +272,12 @@ Fallido al eliminar el producto
 ```
 
 #### **Actualizar Producto**
-- **PUT** `http://localhost:8080/producto/update/frq/{idFranquisia}/suc/{idSucursal}/prod/{idProducto}`
+- **PUT** `http://localhost:8080/producto/update/frq/{idFranquicia}/suc/{idSucursal}/prod/{idProducto}`
 
 **Ejemplo de Uso:**
 ```json
 {
-  "nombre": "franquisia 3 sucursal 3 prodcuto 13",
+  "nombre": "franquicia 3 sucursal 3 prodcuto 13",
   "stock": 1647
 }
 ```
@@ -287,34 +287,34 @@ Fallido al eliminar el producto
 ```
 
 #### **Consultar Productos por Stock en una Franquisia**
-- **GET** `http://localhost:8080/producto/prodstock/frq/{idFranquisia}`
+- **GET** `http://localhost:8080/producto/prodstock/frq/{idFranquicia}`
 
 **Ejemplo de Respuesta:**
 ```json
 [
   {
     "id": 26,
-    "nombre": "productos para franquisia 8 sucursal 9",
+    "nombre": "productos para franquicia 8 sucursal 9",
     "stock": 189
   },
   {
     "id": 25,
-    "nombre": "productos para franquisia 8 sucursal 8",
+    "nombre": "productos para franquicia 8 sucursal 8",
     "stock": 184
   },
   {
     "id": 28,
-    "nombre": "productos para franquisia 8 sucursal 9",
+    "nombre": "productos para franquicia 8 sucursal 9",
     "stock": 149
   },
   {
     "id": 30,
-    "nombre": "productos para franquisia 8 sucursal 9",
+    "nombre": "productos para franquicia 8 sucursal 9",
     "stock": 149
   },
   {
     "id": 27,
-    "nombre": "productos para franquisia 8 sucursal 10",
+    "nombre": "productos para franquicia 8 sucursal 10",
     "stock": 139
   }
 ]

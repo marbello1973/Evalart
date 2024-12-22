@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Productos, Long> {
     @Query("""
                 SELECT p FROM producto p 
-                WHERE p.sucursales.franquisia.id = :franquisiaId 
+                WHERE p.sucursales.franquicia.id = :franquisiaId 
                 ORDER BY p.stock DESC
             """)
     List<Productos> findBySucursalIdOrderByStockDesc(@Param("franquisiaId") Long sucursalId);

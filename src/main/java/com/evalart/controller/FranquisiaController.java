@@ -1,8 +1,8 @@
 package com.evalart.controller;
 
-import com.evalart.model.franquisia.FranquisiaRepository;
-import com.evalart.model.franquisia.FranquisiaDTO;
-import com.evalart.model.franquisia.Franquisia;
+import com.evalart.model.franquicia.Franquicia;
+import com.evalart.model.franquicia.FranquiciaRepository;
+import com.evalart.model.franquicia.FranquiciaDTO;
 import com.evalart.model.sucursal.Sucursales;
 import com.evalart.model.producto.Productos;
 
@@ -16,14 +16,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/franquisia")
+@RequestMapping("/franquicia")
 public class FranquisiaController {
 
-    private final FranquisiaRepository repository;
+    private final FranquiciaRepository repository;
 
     public FranquisiaController
             (
-                FranquisiaRepository repository
+                FranquiciaRepository repository
             )
     {
         this.repository = repository;
@@ -31,45 +31,45 @@ public class FranquisiaController {
 
     // Endpoint para agregar una franquisia
     @PostMapping("/add")
-    public ResponseEntity<Franquisia> addFranquisia(@RequestBody Franquisia franquisia) {
-
-        List<Sucursales> sucursalesList = Optional.ofNullable(franquisia.getSucursales())
+    public ResponseEntity<Franquicia> addFranquisia(@RequestBody Franquicia franquicia)
+    {
+        List<Sucursales> sucursalesList = Optional.ofNullable(franquicia.getSucursales())
                 .orElse(List.of());
 
         sucursalesList = sucursalesList.stream()
                 .map(sucursal -> {
-                    List<Productos> productosList = Optional.ofNullable(sucursal.getProducto())
+                    List<Productos> productosList = Optional
+                            .ofNullable(sucursal.getProducto())
                             .orElse(List.of());
                     productosList.forEach(producto -> producto.setSucursales(sucursal));
-                    sucursal.setFranquisia(franquisia);
+                    sucursal.setFranquicia(franquicia);
                     return sucursal;
                 }).collect(Collectors.toList());
-
-        franquisia.setSucursales(sucursalesList);
-
-        return ResponseEntity.ok(repository.save(franquisia));
+        franquicia.setSucursales(sucursalesList);
+        return ResponseEntity.ok(repository.save(franquicia));
     }
 
 
     // Endpoint para obtener todas las franquisias
     @GetMapping("/all")
-    public ResponseEntity<Page<Franquisia>> getAllFranquisias(Pageable pageable) {
-        Page<Franquisia> franquicias = repository.findAll(pageable);
+    public ResponseEntity<Page<Franquicia>> getAllFranquisias(Pageable pageable)
+    {
+        Page<Franquicia> franquicias = repository.findAll(pageable);
         return ResponseEntity.ok(franquicias);
     }
 
     // Endpoint para actualizar o cambiar de nombre una franquisia por id
     @PutMapping("/update/{id}")
-    public ResponseEntity<Franquisia> updateFranquisia
+    public ResponseEntity<Franquicia> updateFranquicia
             (
                 @PathVariable Long id,
-                @RequestBody FranquisiaDTO franquisiaDTO
+                @RequestBody FranquiciaDTO franquiciaDTO
             )
     {
-        Franquisia franquisia = repository.findById(id)
+        Franquicia franquicia = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Franquisia no encontrada"));
 
-        franquisia.setNombre(franquisiaDTO.nombre());
-        return ResponseEntity.ok(repository.save(franquisia));
+        franquicia.setNombre(franquiciaDTO.nombre());
+        return ResponseEntity.ok(repository.save(franquicia));
     }
 }

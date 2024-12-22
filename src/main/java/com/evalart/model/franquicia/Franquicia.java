@@ -1,4 +1,4 @@
-package com.evalart.model.franquisia;
+package com.evalart.model.franquicia;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -11,10 +11,8 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity(name = "franquisia")
-public class Franquisia {
+@Entity(name = "franquicia")
+public class Franquicia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +20,17 @@ public class Franquisia {
     private String nombre;
 
     @Getter
-    @OneToMany(mappedBy = "franquisia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "franquicia", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Sucursales> sucursales;
+
+    public Franquicia() { }
+
+    public Franquicia(Long id, String nombre, List<Sucursales> sucursales) {
+        this.id = id;
+        this.nombre = nombre;
+        this.sucursales = sucursales;
+    }
 
     public Long getId() {
         return id;

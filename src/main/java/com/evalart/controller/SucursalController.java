@@ -1,9 +1,9 @@
 package com.evalart.controller;
 
-import com.evalart.model.franquisia.FranquisiaRepository;
+import com.evalart.model.franquicia.FranquiciaRepository;
 import com.evalart.model.sucursal.SucursalesRepository;
 import com.evalart.model.producto.ProductoRepository;
-import com.evalart.model.franquisia.Franquisia;
+import com.evalart.model.franquicia.Franquicia;
 import com.evalart.model.sucursal.Sucursales;
 
 import org.springframework.http.HttpStatus;
@@ -17,18 +17,18 @@ import java.util.Optional;
 public class SucursalController {
 
     private final SucursalesRepository repository;
-    private final FranquisiaRepository franquisiaRepository;
+    private final FranquiciaRepository franquiciaRepository;
     private final ProductoRepository productoRepository;
 
     public SucursalController
             (
                 SucursalesRepository repository,
-                FranquisiaRepository franquisiaRepository,
+                FranquiciaRepository franquiciaRepository,
                 ProductoRepository productoRepository
             )
             {
                 this.repository = repository;
-                this.franquisiaRepository = franquisiaRepository;
+                this.franquiciaRepository = franquiciaRepository;
                 this.productoRepository = productoRepository;
             }
 
@@ -40,15 +40,15 @@ public class SucursalController {
                     @RequestBody Sucursales sucursal
             )
     {
-        Optional<Franquisia> franquisiaId = franquisiaRepository.findById(id);
+        Optional<Franquicia> franquisiaId = franquiciaRepository.findById(id);
         if (franquisiaId.isPresent()){
-            Franquisia franquisia = franquisiaId.get();
+            Franquicia franquicia = franquisiaId.get();
             return Optional.of(sucursal)
                     .map(sucursales -> {
-                        sucursales.setFranquisia(franquisia);
+                        sucursales.setFranquicia(franquicia);
                         Sucursales newSucursal = repository.save(sucursales);
-                        franquisia.getSucursales().add(newSucursal);
-                        franquisiaRepository.save(franquisia);
+                        franquicia.getSucursales().add(newSucursal);
+                        franquiciaRepository.save(franquicia);
                         return ResponseEntity.ok(newSucursal);
                     }).orElseGet(() -> ResponseEntity.notFound().build());
         } else {
@@ -72,10 +72,10 @@ public class SucursalController {
                     @RequestBody Sucursales sucursal
             )
     {
-        return franquisiaRepository.findById(franquisiaId)
+        return franquiciaRepository.findById(franquisiaId)
                 .map(_ -> repository.findById(sucursalId)
                         .map(sucursalUpdate -> {
-                            if(!sucursalUpdate.getFranquisia().getId().equals(franquisiaId)) {
+                            if(!sucursalUpdate.getFranquicia().getId().equals(franquisiaId)) {
                                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
                             }
                             sucursalUpdate.setNombre(sucursal.getNombre());
