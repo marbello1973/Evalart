@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
@@ -64,7 +65,7 @@ public class FranquiciaControllerTests {
 
         ResponseEntity<Franquicia> result = franquisiaController.addFranquisia(franquiciaResultado);
 
-        assertEquals(200, result.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, result.getStatusCode());
 
         Franquicia franquiciaBody = result.getBody();
         assertNotNull(franquiciaBody);
@@ -80,7 +81,7 @@ public class FranquiciaControllerTests {
     @Test
     public void testGetAllFranquisias() {
         Productos producto = new Productos(1L, "producto 1", 100, null);
-        Sucursales sucursal = new Sucursales(1l, "Sucursal 1", List.of(producto));
+        Sucursales sucursal = new Sucursales(1L, "Sucursal 1", List.of(producto));
         Franquicia franquiciaEsperada = new Franquicia(1L, "McDonald's", List.of(sucursal));
 
         Page<Franquicia> pageMock = Mockito.mock(Page.class);
@@ -95,9 +96,9 @@ public class FranquiciaControllerTests {
         Page<Franquicia> franquiciaPage = responseEntity.getBody();
         assertNotNull(franquiciaPage);
         assertEquals(1, franquiciaPage.getContent().size());
-        Franquicia franquiciaRsult = franquiciaPage.getContent().get(0);
-        assertEquals(1l, franquiciaRsult.getId());
-        assertEquals("McDonald's", franquiciaRsult.getNombre());
+        Franquicia franquiciaResult = franquiciaPage.getContent().getFirst();
+        assertEquals(1L, franquiciaResult.getId());
+        assertEquals("McDonald's", franquiciaResult.getNombre());
 
         verify(mockFranquiciaRepository, times(1)).findAll(any(Pageable.class));
 

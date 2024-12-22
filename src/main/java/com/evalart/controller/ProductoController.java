@@ -7,7 +7,6 @@ import com.evalart.model.sucursal.SucursalesRepository;
 import com.evalart.model.producto.ProductoRepository;
 import com.evalart.model.producto.Productos;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +15,10 @@ import org.springframework.http.HttpStatus;
 import java.util.Optional;
 import java.util.List;
 
-@Slf4j
+
 @RestController
 @RequestMapping("/producto")
 public class ProductoController {
-
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ProductoController.class);
 
     private final SucursalesRepository sucursalesRepository;
     private final FranquiciaRepository franquiciaRepository;
@@ -125,7 +122,9 @@ public class ProductoController {
             )
     {
         Optional<Franquicia> franquiciaOptional = franquiciaRepository.findById(franquiciaId);
-        if (franquiciaOptional.isEmpty()) ResponseEntity.notFound().build();
+        if (franquiciaOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
 
         Franquicia franquicia = franquiciaOptional.get();
         Optional<Sucursales> sucursalOptional = franquicia.getSucursales().stream()
@@ -138,7 +137,9 @@ public class ProductoController {
                 .filter(p -> p.getId().equals(productoId))
                 .findFirst();
 
-        if(productoOptional.isEmpty()) ResponseEntity.notFound().build();
+        if(productoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
         Productos productos = productoOptional.get();
         sucursal.getProducto().remove(productos);
@@ -150,11 +151,10 @@ public class ProductoController {
 
     //Exponer endpoint que permita mostrar cual es el producto que más stock tiene por sucursal para una
     //franquicia puntual. Debe retornar un listado de productos que indique a que sucursal pertenece.
-
-    @GetMapping("/prodstock/frq/{franquisiaId}")
-    public ResponseEntity<List<Productos>> getProductosBySucursalId(@PathVariable Long franquisiaId )
+    @GetMapping("/prodstock/frq/{franquiciaId}")
+    public ResponseEntity<List<Productos>> getProductosBySucursalId(@PathVariable Long franquiciaId )
     {
-        List<Productos> productos = repository.findBySucursalIdOrderByStockDesc(franquisiaId);
+        List<Productos> productos = repository.findBySucursalIdOrderByStockDesc(franquiciaId);
 
         if (productos.isEmpty()) ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
