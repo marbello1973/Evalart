@@ -26,7 +26,7 @@ public class Sucursales {
 
     @OneToMany(mappedBy = "sucursales", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Productos> producto = new ArrayList<>();
+    private List<Productos> producto;
 
     public Sucursales() { }
 
@@ -44,9 +44,7 @@ public class Sucursales {
         this.id = id;
     }
 
-    public List<Productos> getProducto() {
-        return producto;
-    }
+    public List<Productos> getProducto() { return producto; }
 
     public void setProducto(List<Productos> producto) {
         this.producto = producto;
@@ -66,5 +64,15 @@ public class Sucursales {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Sucursales{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", franquicia=" + franquicia +
+                ", producto=" + producto +
+                '}';
     }
 }

@@ -30,8 +30,7 @@ public class Productos {
         this.sucursales = sucursales;
     }
 
-    public Productos(long l, String s, double v) {
-    }
+    public Productos(long l, String productoName, int i) { }
 
     public Long getId() {
         return id;
@@ -63,5 +62,15 @@ public class Productos {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Productos{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", stock=" + stock +
+                ", sucursales=" + sucursales +
+                '}';
     }
 }

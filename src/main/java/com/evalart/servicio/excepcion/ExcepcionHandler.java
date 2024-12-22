@@ -57,11 +57,35 @@ public class ExcepcionHandler {
 
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception ex) {
+    @ExceptionHandler(StackOverflowError.class)
+    public ResponseEntity<Map<String, Object>> handleStackOverflowError(StackOverflowError ex) {
+        Map<String, Object> response = new HashMap<>();
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        response.put("timestamp", new Date());
+        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.put("error", "Internal Server Error");
+        response.put("message", ex.getMessage());
+        response.put("path", "/producto");
+
+        String errorUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/producto/error/{status}")
+                .buildAndExpand(status.value())
+                .toUriString();
+        response.put("url", errorUrl);
+
+        return new ResponseEntity<>(response, status);
+
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<String> handleNullPointerException(NullPointerException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Error interno del servidor: " + ex.getMessage());
     }
 
 
 }
+
+//StackOverflowError
+//NullPointerException

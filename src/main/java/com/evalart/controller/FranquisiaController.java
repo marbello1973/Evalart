@@ -1,7 +1,6 @@
 package com.evalart.controller;
 
 import com.evalart.model.franquicia.FranquiciaRepository;
-import com.evalart.model.franquicia.FranquiciaDTO;
 import com.evalart.model.franquicia.Franquicia;
 import com.evalart.model.sucursal.Sucursales;
 import com.evalart.model.producto.Productos;
@@ -59,13 +58,13 @@ public class FranquisiaController {
     public ResponseEntity<Franquicia> updateFranquicia
             (
                 @PathVariable Long id,
-                @RequestBody FranquiciaDTO franquiciaDTO
+                @RequestBody Franquicia franquicia
             )
     {
-        Franquicia franquicia = repository.findById(id)
+        franquicia = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Franquicia no encontrada"));
 
-        franquicia.setNombre(franquiciaDTO.nombre());
+        franquicia.setNombre(franquicia.getNombre());
         return ResponseEntity.ok(repository.save(franquicia));
     }
 }

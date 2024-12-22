@@ -7,17 +7,21 @@ import com.evalart.model.sucursal.SucursalesRepository;
 import com.evalart.model.producto.ProductoRepository;
 import com.evalart.model.producto.Productos;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/producto")
 public class ProductoController {
+
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ProductoController.class);
 
     private final SucursalesRepository sucursalesRepository;
     private final FranquiciaRepository franquiciaRepository;
@@ -111,6 +115,7 @@ public class ProductoController {
     }
 
     //Exponer endpoint que permita eliminar un producto de una sucursal de una franquicia.
+    @Transactional
     @DeleteMapping("/delete/frq/{franquiciaId}/suc/{sucursalId}/prod/{productoId}")
     public ResponseEntity<Productos> deleteProductoFromSucursal
             (
@@ -120,28 +125,24 @@ public class ProductoController {
             )
     {
         Optional<Franquicia> franquiciaOptional = franquiciaRepository.findById(franquiciaId);
-        if (franquiciaOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        Franquicia franquicia = franquiciaOptional.get();
+        if (franquiciaOptional.isEmpty()) ResponseEntity.notFound().build();
 
+        Franquicia franquicia = franquiciaOptional.get();
         Optional<Sucursales> sucursalOptional = franquicia.getSucursales().stream()
                 .filter(s -> s.getId().equals(sucursalId))
                 .findFirst();
 
-        if (sucursalOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
+        if (sucursalOptional.isEmpty()) throw new RuntimeException("Sucursal no encontrada");
         Sucursales sucursal = sucursalOptional.get();
         Optional<Productos> productoOptional = sucursal.getProducto().stream()
                 .filter(p -> p.getId().equals(productoId))
                 .findFirst();
-        if(productoOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
 
-        sucursal.getProducto().remove(productoOptional.get());
+        if(productoOptional.isEmpty()) ResponseEntity.notFound().build();
+
+        Productos productos = productoOptional.get();
+        sucursal.getProducto().remove(productos);
+        repository.deleteById(productoId);
         sucursalesRepository.save(sucursal);
         return ResponseEntity.status(HttpStatus.OK).build();
 

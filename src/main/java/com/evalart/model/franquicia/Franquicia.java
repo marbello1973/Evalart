@@ -6,7 +6,6 @@ import com.evalart.model.sucursal.Sucursales;
 
 import jakarta.persistence.*;
 
-
 import lombok.Data;
 
 import java.util.List;
@@ -47,5 +46,14 @@ public class Franquicia {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Franquicia{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", sucursales=" + sucursales +
+                '}';
     }
 }

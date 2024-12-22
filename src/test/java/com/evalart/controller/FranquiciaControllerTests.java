@@ -1,7 +1,6 @@
 package com.evalart.controller;
 
 import com.evalart.model.franquicia.Franquicia;
-import com.evalart.model.franquicia.FranquiciaDTO;
 import com.evalart.model.franquicia.FranquiciaRepository;
 import com.evalart.model.producto.Productos;
 import com.evalart.model.sucursal.Sucursales;
@@ -80,7 +79,7 @@ public class FranquiciaControllerTests {
 
     @Test
     public void testGetAllFranquisias() {
-        Productos producto = new Productos(1L, "producto 1", 1000.0);
+        Productos producto = new Productos(1L, "producto 1", 100, null);
         Sucursales sucursal = new Sucursales(1l, "Sucursal 1", List.of(producto));
         Franquicia franquiciaEsperada = new Franquicia(1L, "McDonald's", List.of(sucursal));
 
@@ -110,14 +109,14 @@ public class FranquiciaControllerTests {
         Franquicia franquiciaExiste = new Franquicia(1L, "McDonald's", List.of());
         when(mockFranquiciaRepository.findById(1L)).thenReturn(java.util.Optional.of(franquiciaExiste));
 
-        FranquiciaDTO franquiciaDTO = new FranquiciaDTO(1L, "McDonald's", List.of());
+        Franquicia franquicia = new Franquicia(1L, "McDonald's", List.of());
         when(mockFranquiciaRepository.save(any(Franquicia.class))).thenReturn(franquiciaExiste);
 
         mockMvc.perform(put("/franquicia/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nombre\": \"McDonald's\"}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nombre").value(franquiciaDTO.nombre()));
+                .andExpect(jsonPath("$.nombre").value(franquicia.getNombre()));
         verify(mockFranquiciaRepository, times(1)).save(franquiciaExiste);
         System.out.println("Test3 passed");
     }
