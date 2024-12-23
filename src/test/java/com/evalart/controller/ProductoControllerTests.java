@@ -16,22 +16,23 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.*;
 
+
 public class ProductoControllerTests {
 
-    @Mock
+    @MockitoBean
     private ProductoRepository mockProductoRepository;
 
-    @Mock
+    @MockitoBean
     private FranquiciaRepository mockFranquiciaRepository;
 
-    @Mock
+    @MockitoBean
     private SucursalesRepository mockSucursalesRepository;
 
     @InjectMocks
@@ -153,8 +154,44 @@ public class ProductoControllerTests {
                 .filter(p -> p.getId() == 1L)
                 .findFirst();
         assertTrue(productosEliminado.isEmpty());
-
     }
+
+
+    @Test
+    public void testGetProductoConMasStockPorSucursal() {
+        Productos producto0 = new Productos(1L, "Producto 1", 680, null);
+        Productos producto1 = new Productos(1L, "Producto 1", 100, null);
+        Productos producto2 = new Productos(2L, "Producto 2", 200, null);
+        Productos producto3 = new Productos(3L, "Producto 3", 300, null);
+        List<Productos> productos = List.of(producto0, producto1, producto2, producto3);
+
+        when(mockProductoRepository.findBySucursalIdOrderByStockDesc(1L))
+                .thenReturn(productos);
+
+        ResponseEntity<List<Productos>> response = productoController.getProductoConMasStockPorSucursal(1L);
+
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        List<Productos> productoConMasStock = response.getBody();
+        assertNotNull(productoConMasStock);
+        assertFalse(productoConMasStock.isEmpty());
+
+        assertEquals(productos.getFirst().getId(), productoConMasStock.getFirst().getId());
+        assertEquals(productos.getFirst().getNombre(), productoConMasStock.getFirst().getNombre());
+        assertEquals(productos.getFirst().getStock(), productoConMasStock.getFirst().getStock());
+
+        System.out.println("Test3 passed");
+    }
+
+    @Test
+    public void testGetProductoConMasStockPorSucursal_NoProductsFound() {
+        when(mockFranquiciaRepository.findById(1L)).thenReturn(Optional.empty());
+        ResponseEntity<List<Productos>> response = productoController.getProductoConMasStockPorSucursal(1L);
+        assertNotNull(response);
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+    }
+
 }
 
 

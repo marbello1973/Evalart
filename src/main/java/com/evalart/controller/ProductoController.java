@@ -149,18 +149,17 @@ public class ProductoController {
 
     }
 
-    //Exponer endpoint que permita mostrar cual es el producto que más stock tiene por sucursal para una
-    //franquicia puntual. Debe retornar un listado de productos que indique a que sucursal pertenece.
+    //Exponer endpoint que permita mostrar cuál es el producto que más stock tiene por sucursal para una
+    //franquicia puntual. Debe retornar un listado de productos que indique a qué sucursal pertenece.
     @GetMapping("/prodstock/frq/{franquiciaId}")
-    public ResponseEntity<List<Productos>> getProductosBySucursalId(@PathVariable Long franquiciaId )
+    public ResponseEntity<List<Productos>> getProductoConMasStockPorSucursal(@PathVariable Long franquiciaId )
     {
         List<Productos> productos = repository.findBySucursalIdOrderByStockDesc(franquiciaId);
 
-        if (productos.isEmpty()) ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
-
-        return ResponseEntity.ok(productos);
+        if (productos == null || productos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productos);
     }
 
 }

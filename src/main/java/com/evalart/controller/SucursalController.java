@@ -49,21 +49,14 @@ public class SucursalController {
                         Sucursales newSucursal = repository.save(sucursales);
                         franquicia.getSucursales().add(newSucursal);
                         franquiciaRepository.save(franquicia);
-                        return ResponseEntity.ok(newSucursal);
+                        return ResponseEntity.status(HttpStatus.CREATED).body(newSucursal);
                     }).orElseGet(() -> ResponseEntity.notFound().build());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/getSucursal/{id}")
-    public ResponseEntity<Sucursales> getSucursal(@PathVariable Long id) {
-        Optional<Sucursales> sucursal = repository.findById(id);
-        if (!sucursal.isPresent()) ResponseEntity.notFound().build();
-        return ResponseEntity.ok(sucursal.get());
-    }
-
-    // Endpoint para actualizar una sucursal dentro de una franquisia especifica
+    // Endpoint para actualizar una sucursal dentro de una franquisia específica
     @PutMapping("/update/frq/{franquisiaId}/sucursal/{sucursalId}")
     public ResponseEntity<?> updateSucursal
             (
@@ -72,16 +65,32 @@ public class SucursalController {
                     @RequestBody Sucursales sucursal
             )
     {
-        return franquiciaRepository.findById(franquisiaId)
-                .map(_ -> repository.findById(sucursalId)
-                        .map(sucursalUpdate -> {
-                            if(!sucursalUpdate.getFranquicia().getId().equals(franquisiaId)) {
-                                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-                            }
-                            sucursalUpdate.setNombre(sucursal.getNombre());
-                            return ResponseEntity.ok(repository.save(sucursalUpdate));
-                        }).orElseGet(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()))
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        Optional<Franquicia> franquiciaOptional = franquiciaRepository.findById(franquisiaId);
+        if(franquiciaOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Optional<Sucursales> sucursales = repository.findById(sucursalId);
+        if(sucursales.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        Sucursales sucursalUpdate = sucursales.get();
+        if (!sucursalUpdate.getFranquicia().getId().equals(franquisiaId)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        sucursalUpdate.setNombre(sucursal.getNombre());
+        Sucursales update = repository.save(sucursalUpdate);
+        return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+
+    //Solo para pruebas
+    @GetMapping("/getSucursal/{id}")
+    public ResponseEntity<Sucursales> getSucursal(@PathVariable Long id) {
+        Optional<Sucursales> sucursal = repository.findById(id);
+        if (!sucursal.isPresent()) ResponseEntity.notFound().build();
+        return ResponseEntity.ok(sucursal.get());
     }
 }
 

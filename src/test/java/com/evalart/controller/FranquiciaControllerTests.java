@@ -14,28 +14,29 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+
 import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+import java.util.Optional;
 
 public class FranquiciaControllerTests {
 
-    @Mock
+    @MockitoBean
     private FranquiciaRepository mockFranquiciaRepository;
 
     private FranquisiaController franquisiaController;
@@ -62,7 +63,6 @@ public class FranquiciaControllerTests {
         Franquicia franquiciaResultado = new Franquicia();
         franquiciaResultado.setNombre("McDonald's");
 
-
         ResponseEntity<Franquicia> result = franquisiaController.addFranquisia(franquiciaResultado);
 
         assertEquals(HttpStatus.OK, result.getStatusCode());
@@ -74,7 +74,7 @@ public class FranquiciaControllerTests {
         assertEquals(franquiciaEsperada.getSucursales().isEmpty(), franquiciaBody.getSucursales().isEmpty());
 
         verify(mockFranquiciaRepository, times(1)).save(any(Franquicia.class));
-        System.out.println("Test1 passed");
+
     }
 
 
@@ -102,13 +102,12 @@ public class FranquiciaControllerTests {
 
         verify(mockFranquiciaRepository, times(1)).findAll(any(Pageable.class));
 
-        System.out.println("Test2 passed");
     }
 
     @Test
     public void testUpdateFranquicia() throws Exception {
         Franquicia franquiciaExiste = new Franquicia(1L, "McDonald's", List.of());
-        when(mockFranquiciaRepository.findById(1L)).thenReturn(java.util.Optional.of(franquiciaExiste));
+        when(mockFranquiciaRepository.findById(1L)).thenReturn(Optional.of(franquiciaExiste));
 
         Franquicia franquicia = new Franquicia(1L, "McDonald's", List.of());
         when(mockFranquiciaRepository.save(any(Franquicia.class))).thenReturn(franquiciaExiste);
@@ -119,7 +118,7 @@ public class FranquiciaControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.nombre").value(franquicia.getNombre()));
         verify(mockFranquiciaRepository, times(1)).save(franquiciaExiste);
-        System.out.println("Test3 passed");
+
     }
 
 }
