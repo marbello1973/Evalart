@@ -135,29 +135,7 @@ spring:
             "stock": 1614
           }
         ]
-      },
-      {
-        "id": 6,
-        "nombre": "Sucursal Bogotá",
-        "producto": [
-          {
-            "id": 20,
-            "nombre": "productos para franquicia 1 sucursal 6",
-            "stock": 110
-          }
-        ]
-      },
-      {
-        "id": 7,
-        "nombre": "Sucursal Barranqulla",
-        "producto": [
-          {
-            "id": 21,
-            "nombre": "productos para franquicia 1 sucursal 7",
-            "stock": 150
-          }
-        ]
-      }      
+      }                 
     ]
   }
 ]
@@ -298,21 +276,6 @@ Fallido al eliminar el producto
     "id": 25,
     "nombre": "productos para franquicia 8 sucursal 8",
     "stock": 184
-  },
-  {
-    "id": 28,
-    "nombre": "productos para franquicia 8 sucursal 9",
-    "stock": 149
-  },
-  {
-    "id": 30,
-    "nombre": "productos para franquicia 8 sucursal 9",
-    "stock": 149
-  },
-  {
-    "id": 27,
-    "nombre": "productos para franquicia 8 sucursal 10",
-    "stock": 139
   }
 ]
 ```
@@ -336,5 +299,22 @@ Fallido al eliminar el producto
 - **Acceso a Swagger UI:**  
   Visita [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) para interactuar con los endpoints disponibles.
 
+---
+## Uso de Postman para probar la API
 
+Hemos preparado un archivo de colección de Postman que contiene todos los endpoints de la API configurados y listos para usar. Puedes importarlo fácilmente en Postman siguiendo estos pasos:
+
+1. Descarga el archivo [`Accenture.postman_collection.json`](./Accenture.postman_collection.json).
+2. Abre Postman.
+3. Haz clic en el botón **Importar** ubicado en la parte superior izquierda.
+4. Selecciona el archivo descargado (`Accenture.postman_collection.json`) y haz clic en **Abrir**.
+5. Una vez importado, verás la colección en el panel lateral izquierdo de Postman, donde podrás probar los endpoints de la API.
+
+### Requisitos
+- [Postman](https://www.postman.com/downloads/) instalado en tu máquina.
+
+### Notas
+- Asegúrate de que el servidor de la API esté ejecutándose antes de realizar las pruebas.
+- Si tu API requiere autenticación, recuerda actualizar los encabezados o las variables necesarias antes de enviar las solicitudes.
+---
    
