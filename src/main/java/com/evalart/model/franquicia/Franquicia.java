@@ -1,13 +1,9 @@
 package com.evalart.model.franquicia;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import com.evalart.model.sucursal.Sucursales;
-
 import jakarta.persistence.*;
-
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -23,14 +19,13 @@ public class Franquicia {
     @JsonManagedReference
     private List<Sucursales> sucursales;
 
-    public Franquicia() { }
 
+    public Franquicia() { }
     public Franquicia(Long id, String nombre, List<Sucursales> sucursales) {
         this.id = id;
         this.nombre = nombre;
         this.sucursales = sucursales;
     }
-
     public Long getId() { return id; }
     public void setId(Long id) {
         this.id = id;

@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "f95b2329-d0f1-4a6c-96e7-d03225e696d1",
+		"name": "Accenture",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25298535",
+		"_collection_link": "https://galactic-zodiac-699970.postman.co/workspace/Team-Workspace~bee9b9ce-12ac-4890-8563-53dfc9ee1f01/collection/25298535-f95b2329-d0f1-4a6c-96e7-d03225e696d1?action=share&source=collection_link&creator=25298535"
+	},
+	"item": [
+		{
+			"name": "Franquisia",
+			"item": [
+				{
+					"name": "Post-Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \n    \"nombre\": \"KFC\"    \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/franquicia/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"franquicia",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/franquicia/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"franquicia",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put-nombre franquisia",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Franquisia Neki\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/franquisia/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"franquisia",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sucursal",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Sucursal Cali\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/sucursal/add/frq/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sucursal",
+								"add",
+								"frq",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sucursal/getSucursal/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sucursal",
+								"getSucursal",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put-sucursal nombre",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Sucursal Barranquilla\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/sucursal/update/frq/2/sucursal/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sucursal",
+								"update",
+								"frq",
+								"2",
+								"sucursal",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Add-producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"productos 1 sucursal 1 franquisia 1\",\n    \"stock\": 1212\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/producto/add/frq/1/suc/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"add",
+								"frq",
+								"1",
+								"suc",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Del-producto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/producto/delete/frq/1/suc/2/prod/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"delete",
+								"frq",
+								"1",
+								"suc",
+								"2",
+								"prod",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \n    \"nombre\": \"franquicia 1 sucursal 2 prodcuto id 2 ACTUALIZADO\",\n    \"stock\": 1662\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/producto/update/frq/1/suc/2/prod/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"update",
+								"frq",
+								"1",
+								"suc",
+								"2",
+								"prod",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get-Stock",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/producto/prodstock/frq/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"prodstock",
+								"frq",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
