@@ -1,0 +1,53 @@
+{
+  "franquicias": [
+    {
+      "nombre": "Macdonal's",
+      "sucursales": [
+        {
+          "nombre": "New York",
+          "productos": [
+            {
+              "nombre": "Fanquisia01",
+              "stock": 100
+            },
+            {
+              "nombre": "Fanquisia02",
+              "stock": 100
+            }
+          ]
+        },
+        {
+          "nombre": "Los Angeles",
+          "productos": [
+            {
+              "nombre": "Fanquisia03",
+              "stock": 50
+            },
+            {
+              "nombre": "Fanquisia04",
+              "stock": 75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Burger King",
+      "sucursales": [
+        {
+          "nombre": "Chicago",
+          "productos": [
+            {
+              "nombre": "Fanquisia05",
+              "stock": 200
+            },
+            {
+              "nombre": "Fanquisia06",
+              "stock": 150
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

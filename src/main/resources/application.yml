@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/accenture
+    url: jdbc:mysql://mysql_database:3306/accenture
     username: root
     password: 5610
     driver-class-name: com.mysql.cj.jdbc.Driver
