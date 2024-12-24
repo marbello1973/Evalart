@@ -294,6 +294,19 @@ Fallido al eliminar el producto
 3. Ejecutar el proyecto con:
    ```bash
    mvn spring-boot:run
+---
+## Iniciar la Aplicación con Docker
+
+Este proyecto está disponible como una imagen Docker en **Docker Hub**. La imagen necesaria para ejecutar la API es `marbello1973/evalart-api-imag`.
+
+### Paso 1: Descargar la Imagen desde Docker Hub
+
+Para descargar la imagen `[marbello1973/evalart-api-imag](https://hub.docker.com/r/marbello1973/evalart-api-imag)`, ejecuta el siguiente comando:
+
+```bash
+docker pull marbello1973/evalart-api-imag:v1
+```
+---
 
 ### **Documentación del API con Swagger**
 - **Acceso a Swagger UI:**  
